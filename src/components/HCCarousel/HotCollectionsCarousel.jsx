@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-// import './owl.css';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
+import "keen-slider/keen-slider.min.css";
+import KeenSlider from "keen-slider";
+import { useKeenSlider } from "keen-slider/react";
+import './HotCollectionsCarousel.css';
 
 const HotCollectionsCarousel = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imgLoaded, setImgLoaded] = useState({});
+
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    slides: { perView: 4, spacing: 15 },
+  });
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -18,7 +23,7 @@ const HotCollectionsCarousel = () => {
         const res = await axios.get(
           "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
         );
-          setCollections(res.data);
+        setCollections(res.data);
       } catch (error) {
         console.error("Error fetching collections:", error);
       } finally {
@@ -29,91 +34,85 @@ const HotCollectionsCarousel = () => {
     fetchCollections();
   }, []);
 
-  const options = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    dots: false,
-    responsive: {
-      0: { items: 1 },
-      600: { items: 2 },
-      1000: { items: 4 },
-    },
-  };
+  if (loading) {
+    return (
+      <div className="container-fluid">
+      <div className="keen-slider">
+        {[1, 2, 3, 4].map((_, index) => (
+          <div className="keen-slider__slide item" key={index}>
+            <Skeleton
+              width="100%"
+              height="250px"
+              borderRadius="8px"
+              style={{ margin: "0 8px" }}
+            />
+            <Skeleton
+              width="50px"
+              height="50px"
+              borderRadius="50%"
+              style={{ marginTop: "10px" }}
+            />
+            <Skeleton
+              width="80%"
+              height="20px"
+              borderRadius="4px"
+              style={{ marginTop: "10px" }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+    );
+  }
 
   return (
-    <div>
+    <div id="HotCollectionsCarousel">
       <div className="container-fluid">
-        <div className="row title" style={{ marginBottom: "20px" }}></div>
-      </div>
-      <div className="container-fluid">
-        <OwlCarousel {...options}>
+        <div ref={sliderRef} className="keen-slider">
           {collections.map((item, index) => (
-            <div className="item" key={index}>
+            <div className="keen-slider__slide item" key={index}>
               <div className="nft_coll">
-                {imgLoaded ? (
-                  <>
-                    <Skeleton
-                      width="100%"
-                      height="200px"
-                      style={{ marginBottom: "10px" }}
+                <div className="nft_wrap">
+                  <Link to={`/item-details/${item.id}`}>
+                    <img
+                      src={item.nftImage}
+                      className="lazy img-fluid"
+                      alt=""
+                      onLoad={() =>
+                        setImgLoaded((prev) => ({
+                          ...prev,
+                          [item.id]: true,
+                        }))
+                      }
                     />
-                    <Skeleton
-                      width="50px"
-                      height="50px"
-                      borderRadius="50%"
-                      style={{ margin: "0 auto 10px" }}
+                  </Link>
+                </div>
+                <div className="nft_coll_pp">
+                  <Link to={`/item-details/${item.id}`}>
+                    <img
+                      className="lazy pp-coll"
+                      src={item.authorImage}
+                      alt=""
                     />
-                    <Skeleton
-                      width="70%"
-                      height="20px"
-                      style={{ margin: "0 auto" }}
-                    />
-                    <Skeleton
-                      width="40%"
-                      height="15px"
-                      style={{ margin: "5px auto 0" }}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div className="nft_wrap">
-                      <Link to={`/item-details/${item.id}`}>
-                        <img
-                          src={item.nftImage}
-                          className="lazy img-fluid"
-                          alt=""
-                          onLoad={() =>
-                            setImgLoaded((prev) => ({
-                              ...prev,
-                              [item.id]: true,
-                            }))
-                          }
-                        />
-                      </Link>
-                    </div>
-                    <div className="nft_coll_pp">
-                      <Link to={`/item-details/${item.id}`}>
-                        <img
-                          className="lazy pp-coll"
-                          src={item.authorImage}
-                          alt=""
-                        />
-                      </Link>
-                      <i className="fa fa-check"></i>
-                    </div>
-                    <div className="nft_coll_info">
-                      <Link to={`/item-details/${item.id}`}>
-                        <h4>{item.title}</h4>
-                      </Link>
-                      <span>ERC{item.code}</span>
-                    </div>
-                  </>
-                )}
+                  </Link>
+                  <i className="fa fa-check"></i>
+                </div>
+                <div className="nft_coll_info">
+                  <Link to={`/item-details/${item.id}`}>
+                    <h4>{item.title}</h4>
+                  </Link>
+                  <span>ERC{item.code}</span>
+                </div>
               </div>
             </div>
           ))}
-        </OwlCarousel>
+          <button onClick={() => instanceRef.current?.prev()} className="slider-button left">
+            <img className="arrow left__arrow" src="https://static.vecteezy.com/system/resources/previews/017/784/917/non_2x/left-arrow-icon-on-transparent-background-free-png.png" alt="" />
+          </button>
+          <button onClick={() => instanceRef.current?.next()} className="slider-button right">
+             <img className="arrow right__arrow" src="https://static.vecteezy.com/system/resources/thumbnails/017/785/208/small_2x/right-arrow-icon-on-transparent-background-free-png.png" alt="" />
+          </button>
+        </div>
       </div>
     </div>
   );
