@@ -15,6 +15,14 @@ const HotCollectionsCarousel = () => {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     slides: { perView: 4, spacing: 15 },
+     breakpoints: {
+    "(max-width: 980px)": {
+      slides: { perView: 2, spacing: 10 },
+    },
+    "(max-width: 600px)": {
+      slides: { perView: 1, spacing: 5 },
+    },
+  },
   });
 
   useEffect(() => {
