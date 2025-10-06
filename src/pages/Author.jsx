@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
 import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
+import axios from "axios";
 
 const Author = () => {
+  const [author, setAuthor] = useState({});
+  const [loading, setLoading] = useState(true);
+
+   useEffect(() => {
+    const fetchAuthor = async () => {
+      try {
+        const res = await axios.get(
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/authors"
+        );
+        setAuthor(res.data);
+      } catch (error) {
+        console.error("Error fetching author:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAuthor();
+  }, []);
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
