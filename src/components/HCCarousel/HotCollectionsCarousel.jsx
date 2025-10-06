@@ -73,7 +73,7 @@ const HotCollectionsCarousel = () => {
             <div className="keen-slider__slide item" key={index}>
               <div className="nft_coll">
                 <div className="nft_wrap">
-                  <Link to={'/author'}>
+                  <Link to={`/item/${item.nftId}`}>
                     <img
                       src={item.nftImage}
                       className="lazy img-fluid"
@@ -88,7 +88,7 @@ const HotCollectionsCarousel = () => {
                   </Link>
                 </div>
                 <div className="nft_coll_pp">
-                  <Link to={'/author'}>
+                  <Link to={`/author/${item.authorId}`}>
                     <img
                       className="lazy pp-coll"
                       src={item.authorImage}
@@ -98,7 +98,7 @@ const HotCollectionsCarousel = () => {
                   <i className="fa fa-check"></i>
                 </div>
                 <div className="nft_coll_info">
-                  <Link to={'/author'}>
+                  <Link to={`/author/${item.authorId}`}>
                     <h4>{item.title}</h4>
                   </Link>
                   <span>ERC{item.code}</span>

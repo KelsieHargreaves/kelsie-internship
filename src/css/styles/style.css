@@ -13293,14 +13293,17 @@ a.read_more i {
   position: absolute;
   display: inline-block;
   width: 50px;
-  height: auto;
+  height: 50px;
   margin-left: 10px;
   z-index: 10;
+  overflow: hidden;
 }
 
 .author_list_pp img {
-  width: 100%;
+  width: 100% !important;
   border-radius: 100% !important;
+  object-fit: cover;
+  display: block;
   -moz-border-radius: 100% !important;
   -webkit-border-radius: 100% !important;
   position: relative;
