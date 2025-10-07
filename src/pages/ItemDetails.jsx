@@ -33,7 +33,7 @@ const ItemDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-    if (loading) {
+  if (loading) {
     return (
       <div id="wrapper">
         <div className="no-bottom no-top" id="content">
@@ -54,18 +54,36 @@ const ItemDetails = () => {
                     <Skeleton height="100px" width="100%" className="mb-3" />
                     <div className="d-flex flex-row mb-3">
                       <div className="mr40">
-                        <Skeleton height="20px" width="120px" className="mb-2" />
+                        <Skeleton
+                          height="20px"
+                          width="120px"
+                          className="mb-2"
+                        />
                         <div className="item_author d-flex align-items-center">
-                          <Skeleton height="40px" width="40px" borderRadius="50%" className="mr-2" />
+                          <Skeleton
+                            height="40px"
+                            width="40px"
+                            borderRadius="50%"
+                            className="mr-2"
+                          />
                           <Skeleton height="20px" width="80px" />
                         </div>
                       </div>
                     </div>
                     <div className="de_tab tab_simple">
                       <div className="de_tab_content mb-3">
-                        <Skeleton height="20px" width="120px" className="mb-2" />
+                        <Skeleton
+                          height="20px"
+                          width="120px"
+                          className="mb-2"
+                        />
                         <div className="item_author d-flex align-items-center">
-                          <Skeleton height="40px" width="40px" borderRadius="50%" className="mr-2" />
+                          <Skeleton
+                            height="40px"
+                            width="40px"
+                            borderRadius="50%"
+                            className="mr-2"
+                          />
                           <Skeleton height="20px" width="100px" />
                         </div>
                       </div>
@@ -85,7 +103,6 @@ const ItemDetails = () => {
       </div>
     );
   }
-
 
   return (
     <div id="wrapper">
@@ -115,21 +132,25 @@ const ItemDetails = () => {
                       {item.likes}
                     </div>
                   </div>
-                  <p>
-                  {item.description}
-                  </p>
+                  <p>{item.description}</p>
                   <div className="d-flex flex-row">
                     <div className="mr40">
-                      <h6>{item.ownerName}</h6>
+                      <h6>Owner</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to={`/author/${item.authorId}`}>
-                            <img className="lazy" src={item.ownerImage} alt="" />
+                          <Link to={`/author/${item.ownerId}`}>
+                            <img
+                              className="lazy"
+                              src={item.ownerImage}
+                              alt=""
+                            />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to="/author">{item.ownerName}</Link>
+                          <Link to={`/author/${item.ownerId}`}>
+                            {item.ownerName}
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -140,13 +161,19 @@ const ItemDetails = () => {
                       <h6>Creator</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to="/author">
-                            <img className="lazy" src={item.creatorImage} alt="" />
+                          <Link to={`/author/${item.creatorId}`}>
+                            <img
+                              className="lazy"
+                              src={item.creatorImage}
+                              alt=""
+                            />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to="/author">{item.creatorName}</Link>
+                          <Link to={`/author/${item.creatorId}`}>
+                            {item.creatorName}
+                          </Link>
                         </div>
                       </div>
                     </div>
