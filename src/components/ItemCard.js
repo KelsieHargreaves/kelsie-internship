@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom'
 const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
     
     if (!items.length) return null;
+
+   
+
   return (
     <>
-      {items.map((data, index) => (
+      {items.map((data, index) => {
+         console.log(data);
+         return (
               <div
                 key={index}
                 className={`${isSlider ? "keen-slider__slide" : ""} d-item col-lg-3 col-md-6 col-sm-6 col-xs-12`}
@@ -15,11 +20,11 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                 <div className="nft__item">
                   <div className="author_list_pp">
                     <Link
-                      to="/author"
+                      to={`/author/${data.authorId}`}
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                     >
-                      <img className="lazy" src={data. authorImage} alt="" />
+                      <img className="lazy" src={data.authorImage} alt="" />
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
@@ -43,12 +48,12 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                         </div>
                       </div>
                     </div>
-                    <Link to="/item-details">
+                    <Link to={`/item-details/${data.nftId}`}>
                       <img src={data.nftImage} className="lazy nft__item_preview" alt="" />
                     </Link>
                   </div>
                   <div className="nft__item_info">
-                    <Link to="/item-details">
+                    <Link to={`/item-details/${data.nftId}`}>
                       <h4>{data.title}</h4>
                     </Link>
                     <div className="nft__item_price">{data.price} ETH</div>
@@ -59,7 +64,8 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                   </div>
                 </div>
               </div>
-            ))}
+         )
+})}
     </>
   )
 }
