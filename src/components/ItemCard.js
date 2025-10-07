@@ -24,7 +24,7 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                     >
-                      <img className="lazy" src={data. authorImage} alt="" />
+                      <img className="lazy" src={data.authorImage} alt="" />
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
@@ -48,12 +48,12 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                         </div>
                       </div>
                     </div>
-                    <Link to="/item-details">
+                    <Link to={`/item-details/${data.nftId}`}>
                       <img src={data.nftImage} className="lazy nft__item_preview" alt="" />
                     </Link>
                   </div>
                   <div className="nft__item_info">
-                    <Link to="/item-details">
+                    <Link to={`/item-details/${data.nftId}`}>
                       <h4>{data.title}</h4>
                     </Link>
                     <div className="nft__item_price">{data.price} ETH</div>
