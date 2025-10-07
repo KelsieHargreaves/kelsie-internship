@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import axios from "axios";
 import Skeleton from "../UI/Skeleton";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 
 const TopSellers = () => {
+  AOS.init();
+  AOS.refresh();
+
   const [sellers, setSellers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -81,7 +86,7 @@ const TopSellers = () => {
             </div>
           </div>
           <div className="col-md-12">
-            <ol className="author_list">
+            <ol data-aos="fade" data-aos-duration="1000" className="author_list">
               {sellers.map((data, index) => (
                 <li key={index}>
                   <div className="author_list_pp">

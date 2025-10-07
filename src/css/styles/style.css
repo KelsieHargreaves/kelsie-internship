@@ -2832,6 +2832,7 @@ address span strong {
   text-align: center;
   border: solid 1px #dddddd;
   padding: 20px 0 20px 0;
+  text-decoration: none;
 }
 
 .icon-box.s2 {

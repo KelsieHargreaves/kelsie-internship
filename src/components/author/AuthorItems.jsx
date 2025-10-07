@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
+import AuthorImage from "../../images/author_thumbnail.jpg";
+import nftImage from "../../images/nftImage.jpg";
 
-const AuthorItems = ({nftCollection, authorImage}) => {
-  if (!nftCollection || nftCollection.length === 0) {
-    return <div className="text-center py-5">No items found.</div>;
-  }
-
-  
+const AuthorItems = () => {
   return (
     <div className="de_tab_content">
       <div className="tab-1">
         <div className="row">
-          {nftCollection.map((data, index) => {  
-            console.log("NFT item data:", data);
-            return (        
+          {new Array(8).fill(0).map((_, index) => (
             <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link to="">
-                    <img src={authorImage} alt=""/>
+                    <img className="lazy" src={AuthorImage} alt="" />
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
@@ -43,7 +37,7 @@ const AuthorItems = ({nftCollection, authorImage}) => {
                   </div>
                   <Link to="/item-details">
                     <img
-                      src={data.nftImage}
+                      src={nftImage}
                       className="lazy nft__item_preview"
                       alt=""
                     />
@@ -51,18 +45,17 @@ const AuthorItems = ({nftCollection, authorImage}) => {
                 </div>
                 <div className="nft__item_info">
                   <Link to="/item-details">
-                    <h4>{data.title}</h4>
+                    <h4>Pinky Ocean</h4>
                   </Link>
-                  <div className="nft__item_price">{data.price} ETH</div>
+                  <div className="nft__item_price">2.52 ETH</div>
                   <div className="nft__item_like">
                     <i className="fa fa-heart"></i>
-                    <span>{data.likes}</span>
+                    <span>97</span>
                   </div>
                 </div>
               </div>
             </div>
-            )
-})}
+          ))}
         </div>
       </div>
     </div>

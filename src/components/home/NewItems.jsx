@@ -8,9 +8,14 @@ import "keen-slider/keen-slider.min.css";
 import KeenSlider from "keen-slider";
 import { useKeenSlider } from "keen-slider/react";
 import ItemCard from "../ItemCard";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 
 
 const NewItems = () => {
+  AOS.init();
+  AOS.refresh();
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [countdowns, setCountdowns] = useState({});
@@ -105,7 +110,7 @@ const NewItems = () => {
   return (
     <section id="section-items" className="no-bottom">
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fade" data-aos-duration="1000">
           <div className="col-lg-12">
             <div className="text-center">
               <h2>New Items</h2>
