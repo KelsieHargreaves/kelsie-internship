@@ -10,6 +10,8 @@ const Author = () => {
   const { authorId } = useParams();
   const [author, setAuthor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [follow, setFollow] = useState(false);
+  const [followers, setFollowers] = useState(0);
 
   useEffect(() => {
     const fetchAuthor = async () => {
@@ -19,6 +21,7 @@ const Author = () => {
         );
         console.log("API response:", res.data);
         setAuthor(res.data);
+        setFollowers(res.data.followers);
       } catch (error) {
         console.error("Error fetching author:", error);
       } finally {
@@ -29,20 +32,27 @@ const Author = () => {
     fetchAuthor();
   }, [authorId]);
 
+  const handleFollowClick = () => {
+    if (follow) {
+      setFollowers ((prev) => prev - 1)
+    }
+    else {
+      setFollowers ((prev) => prev + 1)
+    }
+    setFollow(!follow);
+  }
+
+
   if (loading) {
     return (
       <div className="container py-5">
-        {/* Profile skeleton */}
         <div className="d_profile de-flex mb-4">
           <Skeleton width="80px" height="80px" borderRadius="50%" />{" "}
-          {/* avatar */}
           <div className="ml-3">
             <Skeleton width="200px" height="24px" />
             <Skeleton width="150px" height="18px" />
           </div>
         </div>
-
-        {/* NFT cards skeleton */}
         <div className="row">
           {[...Array(4)].map((_, i) => (
             <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={i}>
@@ -103,9 +113,9 @@ const Author = () => {
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">{author.followers + " followers"}</div>
-                      <Link to="#" className="btn-main">
-                        Follow
+                      <div className="profile_follower">{followers + " followers"}</div>
+                      <Link to="#" className="btn-main" onClick={handleFollowClick}>
+                        {follow ? "Unfollow" : "Follow"}
                       </Link>
                     </div>
                   </div>
