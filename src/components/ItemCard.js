@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom'
 const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
     
     if (!items.length) return null;
+
+   
+
   return (
     <>
-      {items.map((data, index) => (
+      {items.map((data, index) => {
+         console.log(data);
+         return (
               <div
                 key={index}
                 className={`${isSlider ? "keen-slider__slide" : ""} d-item col-lg-3 col-md-6 col-sm-6 col-xs-12`}
@@ -15,7 +20,7 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                 <div className="nft__item">
                   <div className="author_list_pp">
                     <Link
-                      to="/author"
+                      to={`/author/${data.authorId}`}
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                     >
@@ -59,7 +64,8 @@ const ItemCard = ({items=[], countdowns=[], isSlider = false}) => {
                   </div>
                 </div>
               </div>
-            ))}
+         )
+})}
     </>
   )
 }
