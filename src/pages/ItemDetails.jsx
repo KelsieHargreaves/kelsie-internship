@@ -135,7 +135,7 @@ const ItemDetails = () => {
                   <p>{item.description}</p>
                   <div className="d-flex flex-row">
                     <div className="mr40">
-                      <h6>{item.ownerName}</h6>
+                      <h6>Owner</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
                           <Link to={`/author/${item.ownerId}`}>
